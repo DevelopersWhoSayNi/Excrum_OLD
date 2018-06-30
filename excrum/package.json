@@ -1,16 +1,21 @@
 {
   "name": "excrum",
   "version": "0.1.0",
-  "private": true,
+  "description": "Exact Scrum team management tool",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevelopersWhoSayNi/Excrum.git"
+  },
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "semantic-ui-react": "^0.81.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom"
   }
 }
