@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import ConfigureStore from '../Store';
+import Dashboard from '../dashboard/Dashboard';
 import './App.css';
+
+const store = ConfigureStore();
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Excrum</h1>
-          <h3>Under development ...</h3>
-        </header>
-      </div>
+      <Provider store={store}>
+        <Dashboard />
+      </Provider>
     );
   }
 }
