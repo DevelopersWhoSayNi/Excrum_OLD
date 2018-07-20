@@ -1,5 +1,9 @@
 import * as types from '../ActionTypes';
 
-export function addUser(userName, password) {
+export function UpdateUserAuthStatus(value) {
+  return { type: types.UpdateUserAuthStatus, value };
+}
+
+export function AddUser(userName, password) {
   return { type: types.AddUser, userName, password };
 }

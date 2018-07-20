@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import logo from './logo.svg';
+// import { Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 class MainDashboard extends Component {
   constructor(props) {
@@ -11,34 +12,29 @@ class MainDashboard extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Excrum!</h1>
-          <h3>
-            simple to use application combined with TFS, facilitating the scrum
-            teams of Exact.
-          </h3>
-          <br />
-          <h2 className="text">{this.props.UserName}</h2>
-          <h2 className="text">{this.props.UserPassword}</h2>
-        </header>
+        <h2 className="text">{this.props.UserName}</h2>
+        <h2 className="text">{this.props.UserPassword}</h2>
+        <Link to="profile">Profile (Protected)</Link>
+        <br />
+        <br />
+        <Link to="login">Login</Link>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     UserName: state.UserReducer.UserName,
     UserPassword: state.UserReducer.UserPassword
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
     dispatcher: dispatch
   };
-}
+};
 
 export default connect(
   mapStateToProps,
