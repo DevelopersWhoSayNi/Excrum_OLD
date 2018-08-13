@@ -7,21 +7,19 @@
     "type": "git",
     "url": "https://github.com/DevelopersWhoSayNi/Excrum.git"
   },
-  "dependencies": {
-    "eslint-config-prettier": "^2.9.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
-    "semantic-ui-react": "^0.82.2"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom"
   },
-  "devDependencies": {
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
-  }
+    "redux": "^4.0.0",
+    "semantic-ui-react": "^0.82.2"
+  },
+  "devDependencies": {}
 }
