@@ -1,18 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 const RouteProtected = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      rest.IsAuthenticated ? (
-        <Redirect
-          to={{
-            pathname: '/register',
-            state: { from: props.location }
-          }}
-        />
+      rest.isAuthenticated ? (
+        <Component {...props} />
       ) : (
         <Redirect
           to={{
@@ -25,10 +19,4 @@ const RouteProtected = ({ component: Component, ...rest }) => (
   />
 );
 
-const mapStateToProps = state => {
-  return {
-    IsAuthenticated: state.UserReducer.Authenticated,
-    UserRights: state.UserReducer.UserRights
-  };
-};
-export default connect(mapStateToProps)(RouteProtected);
+export default RouteProtected;

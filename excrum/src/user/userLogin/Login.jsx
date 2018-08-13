@@ -2,30 +2,70 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { UpdateUserAuthStatus } from '../UserActions';
+import { Modal, Header, Button, Form } from 'semantic-ui-react';
+import BackgroundImage from '../ExactOfficeBG.jpg';
 
 class Login extends Component {
   state = {
-    redirectToReferrer: false
+    navigateTo: false
   };
 
   login = () => {
     console.log('Update Auth');
     this.props.UpdateUserAuthStatus(true);
-    this.setState({ redirectToReferrer: true });
+    this.navigateTo(this.getReturnPathName());
   };
 
-  render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { redirectToReferrer } = this.state;
+  getReturnPathName = () => {
+    if (this.props.location.state) {
+      return this.props.location.state.from.pathname;
+    } else {
+      return '/';
+    }
+  };
 
-    if (redirectToReferrer) {
-      return <Redirect to={from} />;
+  navigateTo = routeName => this.setState({ navigateTo: routeName });
+
+  render() {
+    const { navigateTo } = this.state;
+    if (navigateTo) {
+      return <Redirect to={navigateTo} />;
     }
 
     return (
-      <div>
-        <p>You must log in to view the page at {from.pathname}</p>
-        <button onClick={this.login}>Log in</button>
+      <div
+        style={{ backgroundImage: `url(${BackgroundImage})`, height: '660px' }}
+      >
+        <Modal
+          open
+          onClose={() => this.navigateTo('/')}
+          dimmer="blurring"
+          style={{ height: '27%' }}
+        >
+          <Modal.Content>
+            <Form>
+              {/* <p>You must log in to view the page at {from.pathname}</p> */}
+              <Header>Login with your employee ID</Header>
+              <Form.Field>
+                <label>Employee ID</label>
+                <input placeholder="e.g ABCD123456" />
+              </Form.Field>
+              <Form.Field>
+                <label>Password</label>
+                <input type="password" />
+              </Form.Field>
+              <Button.Group floated="right">
+                <Button positive type="submit" onClick={this.login}>
+                  Log in
+                </Button>
+                <Button.Or />
+                <Button onClick={() => this.navigateTo('register')}>
+                  Register
+                </Button>
+              </Button.Group>
+            </Form>
+          </Modal.Content>
+        </Modal>
       </div>
     );
   }

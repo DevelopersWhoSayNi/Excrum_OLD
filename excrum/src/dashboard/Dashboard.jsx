@@ -14,10 +14,10 @@ class MainDashboard extends Component {
       <div className="App">
         <h2 className="text">{this.props.UserName}</h2>
         <h2 className="text">{this.props.UserPassword}</h2>
-        <Link to="profile">Profile (Protected)</Link>
+        <Link to="/profile">Profile (Protected)</Link>
         <br />
         <br />
-        <Link to="login">Login</Link>
+        <Link to="/login">Login</Link>
       </div>
     );
   }
