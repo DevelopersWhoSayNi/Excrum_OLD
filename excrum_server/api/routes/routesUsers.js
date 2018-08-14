@@ -1,30 +1,70 @@
-const mongoose = require("mongoose");
-
-const Users = require("../models/usersModel");
-
-// var mongoose = require("mongoose"),
-//   Users = mongoose.model("Users");
+var mongoose = require("mongoose");
+var Users = require("../models/usersModel");
+const bcrypt = require("bcrypt");
 
 module.exports = function(app) {
-  //Extract to route file
-  app.post("/users", (req, res) => {
-    const user = new Users({
-      _id: new mongoose.Types.ObjectId(),
-      userID: req.body.userID,
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password
-    });
-    user
-      .save()
-      .then(() => {
-        res.status(201).json({
-          message: "Success",
-          user
+  // var users = require("../controllers/usersController");
+  // app
+  //   .route("/users")
+  //   .post(users.registerUsers)
+  //   .get(users.listUsers);
+
+  app.post("/signup", (req, res) => {
+    Users.find({ email: req.body.email })
+      .exec()
+      .then(user => {
+        if (user.length > 0) {
+          return res.status(409).send({ error: "E-mail already exists" });
+        } else {
+          bcrypt.hash(req.body.password, 10, (err, hash) => {
+            if (err) {
+              return res.status(500).send({
+                error: err.message
+              });
+            } else {
+              const user = new Users({
+                _id: new mongoose.Types.ObjectId(),
+                userID: req.body.userID,
+                name: req.body.name,
+                email: req.body.email,
+                password: hash
+              });
+              user
+                .save()
+                .then(() => {
+                  res.status(201).json({
+                    message: "User created",
+                    user
+                  });
+                })
+                .catch(err => {
+                  res.status(400).send({ error: err.message });
+                });
+            }
+          });
+        }
+      })
+      .catch(err => {
+        if (err) return res;
+      });
+  });
+
+  app.post("/login", (req, res, next) => {
+    Users.find({ email: req.body.email })
+      .exec()
+      .then(user => {
+        if (user.length < 1) {
+          res.status(401).json({ error: "Auth failed" });
+        }
+        bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+          if (err) res.status(401).json({ error: "Auth failed" });
+          if (result) {
+            return res.status(200).json({ message: "Success" });
+          }
         });
       })
       .catch(err => {
-        res.status(400).send({ error: err.message });
+        if (err) res.status(500).json({ error: err.message });
       });
   });
 
