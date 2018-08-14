@@ -25,7 +25,7 @@ class Login extends Component {
           this.props.UpdateUserAuthStatus(true);
           this.navigateTo(this.getReturnPathName());
         } else {
-          console.log('else');
+          this.setState({ error: 'Wrong credentials' });
         }
       })
       .catch(() => {
