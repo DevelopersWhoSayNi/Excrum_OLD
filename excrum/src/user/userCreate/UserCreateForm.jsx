@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { UpdateUserAuthStatus } from '../UserActions';
 import { Modal, Header, Button, Form } from 'semantic-ui-react';
 import BackgroundImage from '../ExactOfficeBG.jpg';
+import CreateUser from './CreateUser';
 
 class UserCreateForm extends Component {
   state = {
@@ -11,7 +12,21 @@ class UserCreateForm extends Component {
   };
 
   register = () => {
-    console.log('Register');
+    console.log('Registering...');
+    const userInfo = {
+      userID: 'KHAL360266',
+      name: 'Amir',
+      email: 'abcd@efg.xyz',
+      password: 'QWERTY'
+    };
+
+    CreateUser(userInfo)
+      .then(response => {
+        console.log('Registered', response);
+      })
+      .catch(response => {
+        console.log('failed to register' + response);
+      });
     // this.props.UpdateUserAuthStatus(true);
     // this.setState({ redirectToDashboard: true });
   };
@@ -40,6 +55,10 @@ class UserCreateForm extends Component {
               <Form.Field>
                 <label>Employee ID</label>
                 <input placeholder="e.g ABCD123456" />
+                <label>Name</label>
+                <input />
+                <label>Email</label>
+                <input />
               </Form.Field>
               <Form.Field>
                 <label>Password</label>

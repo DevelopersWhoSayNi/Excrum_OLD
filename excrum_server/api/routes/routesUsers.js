@@ -1,16 +1,16 @@
-var mongoose = require("mongoose"),
-  Users = mongoose.model("Users");
-module.exports = function(app) {
-  // var users = require("../controllers/usersController");
-  // app
-  //   .route("/users")
-  //   .post(users.registerUsers)
-  //   .get(users.listUsers);
+const mongoose = require("mongoose");
 
+const Users = require("../models/usersModel");
+
+// var mongoose = require("mongoose"),
+//   Users = mongoose.model("Users");
+
+module.exports = function(app) {
   //Extract to route file
   app.post("/users", (req, res) => {
     const user = new Users({
       _id: new mongoose.Types.ObjectId(),
+      userID: req.body.userID,
       name: req.body.name,
       email: req.body.email,
       password: req.body.password

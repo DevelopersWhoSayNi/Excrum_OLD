@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { UpdateUserAuthStatus } from '../UserActions';
 import { Modal, Header, Button, Form } from 'semantic-ui-react';
 import BackgroundImage from '../ExactOfficeBG.jpg';
+import Authenticate from './Authenticate';
 
 class Login extends Component {
   state = {
@@ -12,8 +13,18 @@ class Login extends Component {
 
   login = () => {
     console.log('Update Auth');
-    this.props.UpdateUserAuthStatus(true);
-    this.navigateTo(this.getReturnPathName());
+    Authenticate('amir', 'qwerty')
+      .then(() => {
+        if (Response.Authenticated === true) {
+          this.props.UpdateUserAuthStatus(true);
+          this.navigateTo(this.getReturnPathName());
+        } else {
+          //
+        }
+      })
+      .catch(() => {
+        //
+      });
   };
 
   getReturnPathName = () => {
