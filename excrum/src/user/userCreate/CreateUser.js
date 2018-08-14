@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const CreateUser = userInfo => {
-  const url = `http://localhost:8000/users`;
+  const url = `http://localhost:8000/signup`;
   const body = {
     userID: userInfo.userID,
     name: userInfo.name,
@@ -11,7 +11,7 @@ const CreateUser = userInfo => {
 
   return Axios.post(url, body)
     .then(response => {
-      if (response.data.message === 'Success') {
+      if (response.data.message === 'User created') {
         return {
           Registered: true
         };
@@ -22,9 +22,7 @@ const CreateUser = userInfo => {
       }
     })
     .catch(error => {
-      return Promise.reject(
-        new Error('fail to authenticate user: ', error.response)
-      );
+      return Promise.reject(new Error('fail to create user: ', error.response));
     });
 };
 

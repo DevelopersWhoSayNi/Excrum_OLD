@@ -8,21 +8,26 @@ import CreateUser from './CreateUser';
 
 class UserCreateForm extends Component {
   state = {
-    navigateTo: false
+    navigateTo: false,
+    userID: null,
+    name: null,
+    email: null,
+    password: null
   };
 
   register = () => {
-    console.log('Registering...');
+    this.validateInput();
     const userInfo = {
-      userID: 'KHAL360266',
-      name: 'Amir',
-      email: 'abcd@efg.xyz',
-      password: 'QWERTY'
+      userID: this.state.userID,
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
     };
 
     CreateUser(userInfo)
-      .then(response => {
-        console.log('Registered', response);
+      .then(() => {
+        this.props.UpdateUserAuthStatus(true);
+        this.navigateTo('/profile');
       })
       .catch(response => {
         console.log('failed to register' + response);
@@ -31,7 +36,16 @@ class UserCreateForm extends Component {
     // this.setState({ redirectToDashboard: true });
   };
 
+  validateInput = () => {
+    // if(this.state.userID)
+  };
+
   navigateTo = routeName => this.setState({ navigateTo: routeName });
+
+  userIdInput = e => this.setState({ userID: e.target.value });
+  nameInput = e => this.setState({ name: e.target.value });
+  emailInput = e => this.setState({ email: e.target.value });
+  passwordInput = e => this.setState({ password: e.target.value });
 
   render() {
     const { navigateTo } = this.state;
@@ -47,22 +61,40 @@ class UserCreateForm extends Component {
           open
           onClose={() => this.navigateTo('/')}
           dimmer="blurring"
-          style={{ height: '27%' }}
+          style={{ height: '42%' }}
         >
           <Modal.Content>
             <Form>
               <Header>Register new user</Header>
               <Form.Field>
-                <label>Employee ID</label>
-                <input placeholder="e.g ABCD123456" />
-                <label>Name</label>
-                <input />
                 <label>Email</label>
-                <input />
+                <input
+                  type="email"
+                  placeholder="e.g:  Your.fullName@exact.com"
+                  pattern=".+@exact.com"
+                  size="30"
+                  required
+                  onChange={e => this.emailInput(e)}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Employee ID</label>
+                <input
+                  placeholder="e.g:  ABCD123456"
+                  onChange={e => this.userIdInput(e)}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Display Name</label>
+                <input onChange={e => this.nameInput(e)} />
               </Form.Field>
               <Form.Field>
                 <label>Password</label>
-                <input type="password" />
+                <input
+                  type="password"
+                  required
+                  onChange={e => this.passwordInput(e)}
+                />
               </Form.Field>
               <Button.Group floated="right">
                 <Button positive type="submit" onClick={this.register}>
