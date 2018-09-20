@@ -39,3 +39,4 @@ debug.log
 reports/
 build/
 config/junit-results/jest-junit-result-focusedspecs.xml
+.env
