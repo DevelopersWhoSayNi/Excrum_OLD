@@ -25,6 +25,7 @@ module.exports = function(app) {
             } else {
               const user = new Users({
                 _id: new mongoose.Types.ObjectId(),
+                userID: req.body.userID,
                 name: req.body.name,
                 email: req.body.email,
                 password: hash
@@ -46,6 +47,20 @@ module.exports = function(app) {
       })
       .catch(err => {
         if (err) return res;
+      });
+  });
+
+  app.delete("/user/:id", (req, res, next) => {
+    Users.remove({ _id: req.params.id })
+      .exec()
+      .then(result => {
+        res.status(200).json({
+          message: "User deleted"
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        if (err) res.status(500).json({ error: err.message });
       });
   });
 
