@@ -70,13 +70,18 @@ module.exports = function(app) {
       .exec()
       .then(user => {
         if (user.length < 1) {
-          res.status(200).json({ error: "Auth failed" });
+          res.status(401).json({ error: "Authentication failed" });
         } else {
           bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-            if (err || !result) res.status(200).json({ error: "Auth failed" });
+            if (err || !result)
+              res.status(401).json({ error: "Authentication failed" });
             if (result) {
               const token = jwt.sign(
-                { email: user[0].email, userId: user[0]._id },
+                {
+                  email: user[0].email,
+                  id: user[0]._id,
+                  userID: user[0].userID
+                },
                 jwt_key,
                 {
                   expiresIn: "1h"
