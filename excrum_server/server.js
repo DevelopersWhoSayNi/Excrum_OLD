@@ -27,10 +27,10 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var routesUser = require("./api/routes/routesUsers");
-var routesSprints = require("./api/routes/routesSprints");
-routesUser(app);
-routesSprints(app);
+var usersRoute = require("./api/routes/usersRoute");
+var sprintsRoute = require("./api/routes/sprintsRoute");
+usersRoute(app);
+sprintsRoute(app);
 
 app.listen(port, () => {
   console.log(`We are on port: ${port}`);
