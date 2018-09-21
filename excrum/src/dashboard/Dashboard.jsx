@@ -13,8 +13,11 @@ class MainDashboard extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Excrum</h1>
-          <h3>Under development ...</h3>
+          <h1 className="App-title">Excrum!</h1>
+          <h3>
+            simple to use application combined with TFS, facilitating the scrum
+            teams of Exact.
+          </h3>
           <br />
           <h2 className="text">{this.props.UserName}</h2>
           <h2 className="text">{this.props.UserPassword}</h2>

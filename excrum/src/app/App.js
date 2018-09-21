@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import ConfigureStore from '../Store';
-import Dashboard from '../dashboard/Dashboard';
+import Router from './Router';
 import './App.css';
 
 const store = ConfigureStore();
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Dashboard />
-      </Provider>
-    );
-  }
-}
+const App = () => {
+  return (
+    <Provider store={store}>
+      <Router />
+    </Provider>
+  );
+};
 
 export default App;

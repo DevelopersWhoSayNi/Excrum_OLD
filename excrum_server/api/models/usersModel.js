@@ -6,10 +6,16 @@ var usersSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  email: {
+  userID: {
     type: String,
     required: true,
     unique: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
   },
   password: {
     type: String,
